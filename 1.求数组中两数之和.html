@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>求数组中两数之和</title>
+    <style>
+      .h1 {
+        text-align: center;
+      }
+      .a {
+        font-size: 16px;
+      }
+      .code {
+        display: inline-block;
+        padding: 10px 60px 10px 0;
+        color: white;
+        font-size: 16px;
+        border-radius: 10px;
+        background: #272822;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="h1">求数组中两数之和</h1>
+    <hr />
+    <pre>
+        <a class="a" href="https://leetcode-cn.com/problems/two-sum/" target="_blank" rel="noopener noreferrer">https://leetcode-cn.com/problems/two-sum/</a>
+        
+        给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
+        你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。
+
+        <code class="code">
+            示例:
+
+            给定 nums = [2, 7, 11, 15], target = 9
+            
+            因为 nums[0] + nums[1] = 2 + 7 = 9, 所以返回 [0, 1]
+        </code>
+
+        在算法中，根据时间复杂度(代码所运行时间、次数)，空间复杂度(代码所占内存大小)，目前看来 时间复杂度 比 空间复杂度更为重要，因为都是追求 “ 快 ”，所有占用的内存空间大一点也没关系！！
+    </pre>
+
+    <script>
+      let nums = [2, 7, 11, 15],
+        target = 9;
+      target = 13;
+      target = 22;
+
+      /**
+       * @param {number[]} nums
+       * @param {number} target
+       * @return {number[]}
+       */
+      // 方法1
+      var twoSum1 = function (nums, target) {
+        for (let i = 0; i < nums.length; i++) {
+          for (let j = i + 1; j < nums.length; j++) {
+            if (target == nums[i] + nums[j]) {
+              return [i, j];
+              // return [nums[i], nums[j]];
+            }
+          }
+        }
+      };
+      console.log("参与求和数组的两个下标：", twoSum1(nums, target));
+
+      // 方法2
+      var twoSum2 = function (nums, target) {
+        let obj = {};
+        for (let i = 0; i < nums.length; i++) {
+          let num = nums[i];
+          if (num in obj) {
+            return [obj[num], i];
+          } else {
+            obj[target - num] = i;
+          }
+        }
+      };
+      console.log("参与求和数组的两个下标：", twoSum2(nums, target));
+
+      // 方法3
+      var twoSum3 = function (nums, target) {
+        const valuetoindex = new Map();
+        for (let i = 0; i < nums.length; i++) {
+          if (valuetoindex.has(target - nums[i])) {
+            return [valuetoindex.get(target - nums[i]), i];
+          } else {
+            valuetoindex.set(nums[i], i);
+          }
+        }
+        return [];
+      };
+      console.log("参与求和数组的两个下标：", twoSum3(nums, target));
+    </script>
+
+     
+  </body>
+</html>

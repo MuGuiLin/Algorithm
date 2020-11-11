@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>找出二叉树的最大深度</title>
+    <style>
+      .h1 {
+        text-align: center;
+      }
+      .a {
+        font-size: 16px;
+      }
+      .code {
+        display: inline-block;
+        padding: 10px 60px 10px 0;
+        color: white;
+        font-size: 16px;
+        border-radius: 10px;
+        background: #272822;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="h1">找出二叉树的最大深度</h1>
+    <hr />
+    <pre>
+      给定一个二叉树，找出其最大深度。
+
+      <a href="https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/</a>
+
+        二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
+
+        说明: 叶子节点是指没有子节点的节点。
+
+        示例：
+        给定二叉树 [3,9,20,null,null,15,7]，
+        <code class="code">
+          3
+          / \
+         9  20
+           /  \
+          15   7
+        </code>
+
+        返回它的最大深度 3 。
+    </pre>
+
+    <script>
+      let nums = [2, 7, 11, 15],
+        target = 9;
+      target = 13;
+      target = 22;
+
+      /**
+       * @param {number[]} nums
+       * @param {number} target
+       * @return {number[]}
+       */
+      // 方法1
+      var twoSum1 = function (nums, target) {
+        for (let i = 0; i < nums.length; i++) {
+          for (let j = i + 1; j < nums.length; j++) {
+            if (target == nums[i] + nums[j]) {
+              return [i, j];
+              // return [nums[i], nums[j]];
+            }
+          }
+        }
+      };
+      console.log("参与求和数组的两个下标：", twoSum1(nums, target));
+
+      // 方法2
+      var twoSum2 = function (nums, target) {
+        let obj = {};
+        for (let i = 0; i < nums.length; i++) {
+          let num = nums[i];
+          if (num in obj) {
+            return [obj[num], i];
+          } else {
+            obj[target - num] = i;
+          }
+        }
+      };
+      console.log("参与求和数组的两个下标：", twoSum2(nums, target));
+
+      // 方法3
+      var twoSum3 = function (nums, target) {
+        const valuetoindex = new Map();
+        for (let i = 0; i < nums.length; i++) {
+          if (valuetoindex.has(target - nums[i])) {
+            return [valuetoindex.get(target - nums[i]), i];
+          } else {
+            valuetoindex.set(nums[i], i);
+          }
+        }
+        return [];
+      };
+      console.log("参与求和数组的两个下标：", twoSum3(nums, target));
+    </script>
+
+     
+  </body>
+</html>
