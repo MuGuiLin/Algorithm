@@ -47,56 +47,23 @@
     </pre>
 
     <script>
-      let nums = [2, 7, 11, 15],
-        target = 9;
-      target = 13;
-      target = 22;
+      let nums = [3, 9, 20, null, null, 15, 7];
 
       /**
-       * @param {number[]} nums
-       * @param {number} target
-       * @return {number[]}
+       * @param {TreeNode} root
+       * @return {number}
        */
-      // 方法1
-      var twoSum1 = function (nums, target) {
-        for (let i = 0; i < nums.length; i++) {
-          for (let j = i + 1; j < nums.length; j++) {
-            if (target == nums[i] + nums[j]) {
-              return [i, j];
-              // return [nums[i], nums[j]];
-            }
-          }
-        }
-      };
-      console.log("参与求和数组的两个下标：", twoSum1(nums, target));
 
-      // 方法2
-      var twoSum2 = function (nums, target) {
-        let obj = {};
-        for (let i = 0; i < nums.length; i++) {
-          let num = nums[i];
-          if (num in obj) {
-            return [obj[num], i];
-          } else {
-            obj[target - num] = i;
-          }
+      const maxDepth = function (root) {
+        if (null == root) {
+          return 0;
+        } else {
+          // 递归向下查找
+          return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
         }
       };
-      console.log("参与求和数组的两个下标：", twoSum2(nums, target));
 
-      // 方法3
-      var twoSum3 = function (nums, target) {
-        const valuetoindex = new Map();
-        for (let i = 0; i < nums.length; i++) {
-          if (valuetoindex.has(target - nums[i])) {
-            return [valuetoindex.get(target - nums[i]), i];
-          } else {
-            valuetoindex.set(nums[i], i);
-          }
-        }
-        return [];
-      };
-      console.log("参与求和数组的两个下标：", twoSum3(nums, target));
+      console.log("当前二叉树的最大深度为：", maxDepth(nums));
     </script>
 
      

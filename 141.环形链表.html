@@ -49,56 +49,28 @@
     </pre>
 
     <script>
-      let nums = [2, 7, 11, 15],
-        target = 9;
-      target = 13;
-      target = 22;
 
       /**
-       * @param {number[]} nums
-       * @param {number} target
-       * @return {number[]}
+       * @param {ListNode} head
+       * @return {boolean}
        */
-      // 方法1
-      var twoSum1 = function (nums, target) {
-        for (let i = 0; i < nums.length; i++) {
-          for (let j = i + 1; j < nums.length; j++) {
-            if (target == nums[i] + nums[j]) {
-              return [i, j];
-              // return [nums[i], nums[j]];
-            }
-          }
-        }
-      };
-      console.log("参与求和数组的两个下标：", twoSum1(nums, target));
-
-      // 方法2
-      var twoSum2 = function (nums, target) {
-        let obj = {};
-        for (let i = 0; i < nums.length; i++) {
-          let num = nums[i];
-          if (num in obj) {
-            return [obj[num], i];
+      const hasCycle = function (head) {
+        while (head) {
+          if (head.cycle) {
+            return true;
           } else {
-            obj[target - num] = i;
+            head.cycle = 1;
+            head = head.next;
           }
         }
-      };
-      console.log("参与求和数组的两个下标：", twoSum2(nums, target));
 
-      // 方法3
-      var twoSum3 = function (nums, target) {
-        const valuetoindex = new Map();
-        for (let i = 0; i < nums.length; i++) {
-          if (valuetoindex.has(target - nums[i])) {
-            return [valuetoindex.get(target - nums[i]), i];
-          } else {
-            valuetoindex.set(nums[i], i);
-          }
-        }
-        return [];
+        return false;
       };
-      console.log("参与求和数组的两个下标：", twoSum3(nums, target));
+
+      let head = [3, 2, 0, -4], pos = 1;
+
+      // 链表中有一个环，其尾部连接到第二个节点。
+      console.log("判断链表中是否有环：", hasCycle(head));
     </script>
 
      

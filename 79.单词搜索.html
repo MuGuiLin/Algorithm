@@ -52,56 +52,71 @@
     </pre>
 
     <script>
-      let nums = [2, 7, 11, 15],
-        target = 9;
-      target = 13;
-      target = 22;
-
       /**
-       * @param {number[]} nums
-       * @param {number} target
-       * @return {number[]}
+       * @param {character[][]} board
+       * @param {string} word
+       * @return {boolean}
        */
-      // 方法1
-      var twoSum1 = function (nums, target) {
-        for (let i = 0; i < nums.length; i++) {
-          for (let j = i + 1; j < nums.length; j++) {
-            if (target == nums[i] + nums[j]) {
-              return [i, j];
-              // return [nums[i], nums[j]];
-            }
-          }
-        }
-      };
-      console.log("参与求和数组的两个下标：", twoSum1(nums, target));
+       const exist = function (board, word) {
+        // 边界条件判断
+        if (0 === board.length)  return false;
+        if (0 === word.length)  return true;
 
-      // 方法2
-      var twoSum2 = function (nums, target) {
-        let obj = {};
-        for (let i = 0; i < nums.length; i++) {
-          let num = nums[i];
-          if (num in obj) {
-            return [obj[num], i];
-          } else {
-            obj[target - num] = i;
-          }
-        }
-      };
-      console.log("参与求和数组的两个下标：", twoSum2(nums, target));
+        const row = board.length;
+        const col = board[0].length;
 
-      // 方法3
-      var twoSum3 = function (nums, target) {
-        const valuetoindex = new Map();
-        for (let i = 0; i < nums.length; i++) {
-          if (valuetoindex.has(target - nums[i])) {
-            return [valuetoindex.get(target - nums[i]), i];
-          } else {
-            valuetoindex.set(nums[i], i);
+        // 任意思字母都可做为循环的起点
+        for (let i = 0; i < row; i++) {
+          for (let j = 0; j < col; j++) {
+            let ret = find(i, j, 0);
+            if (ret) return true;
           }
         }
-        return [];
+        return false;
+
+        function find(i, j, cur) {
+          // 前后越界判断
+          if (0 > i || i >= row) return false;
+          if (0 > j || j >= col) return false;
+
+          const letter = board[i][j];
+          //  终止条件
+          if (letter !== word[cur]) {
+            return false;
+          }
+          // 找到最后一个时
+          if (cur == word.length - 1) {
+            return true;
+          }
+
+          // 查找一下步
+          // 设置标记
+          board[i][j] = null;
+
+          // 递归 （如何查找下一步）
+          const ret =
+            find(i + 1, j, cur + 1) ||
+            find(i - 1, j, cur + 1) ||
+            find(i, j + 1, cur + 1) ||
+            find(i, j - 1, cur + 1);
+
+          // 取消标记
+          board[i][j] = letter;
+          return ret;
+        }
       };
-      console.log("参与求和数组的两个下标：", twoSum3(nums, target));
+
+      const board = [
+        ["A", "B", "C", "E"],
+        ["S", "F", "C", "S"],
+        ["A", "D", "E", "E"],
+      ];
+
+      // let word = "ABCCED";
+          word = "SEE";  
+          // word = "ABCB"; 
+
+      console.log(`单词搜索：在${board}数组中，是否找有${word}这个单词：`, exist(board, word));
     </script>
 
      
